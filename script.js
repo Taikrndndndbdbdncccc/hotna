@@ -7,7 +7,7 @@ const pribadiCatatan = [
 
 // Masukkan file Foto (.jpg) dan Video (.mp4) pribadi di sini
 const pribadiMedia = [
-    { type: 'image', src: 'pribadi1.jpg' },
+    { type: 'image', src: 'muhajir.jpg' },
     { type: 'video', src: 'pribadi_video1.mp4' }
 ];
 
