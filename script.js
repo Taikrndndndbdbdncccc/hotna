@@ -1,14 +1,14 @@
-// --- 1. CATATAN PRIBADI (PENGATURAN MANUAL) ---
+// --- 1. SETINGAN PRIBADI (PENGATURAN MANUAL) ---
 const pribadiCatatan = [
     "Ini adalah catatan rahasia Muhaji yang ditulis di koding.",
-    "Password WiFi: Muhaji2024",
-    "Jaga kesehatan dan selalu sholat tepat waktu."
+    "PIN rahasia sistem adalah 4718.",
+    "Selalu jaga keamanan data pribadi Anda."
 ];
 
 // Masukkan file Foto (.jpg) dan Video (.mp4) pribadi di sini
 const pribadiMedia = [
     { type: 'image', src: 'pribadi1.jpg' },
-    { type: 'video', src: 'pribadi_vid.mp4' }
+    { type: 'video', src: 'pribadi_video1.mp4' }
 ];
 
 // --- 2. DATA HALAMAN LAIN ---
@@ -26,9 +26,9 @@ const pagesData = {
     'kawan': { 
         title: 'Daftar Kawan', 
         html: `
-        <div class="friend-item"><img src="https://i.pravatar.cc/150?u=1" class="friend-pp"><span>Ahmad Syah</span></div>
-        <div class="friend-item"><img src="https://i.pravatar.cc/150?u=2" class="friend-pp"><span>Lee Chong Wei</span></div>
-        <div class="friend-item"><img src="https://i.pravatar.cc/150?u=3" class="friend-pp"><span>Siti Aminah</span></div>` 
+        <div class="friend-item"><img src="https://i.pravatar.cc/150?u=11" class="friend-pp"><span>Ahmad Syah</span></div>
+        <div class="friend-item"><img src="https://i.pravatar.cc/150?u=22" class="friend-pp"><span>Lee Chong Wei</span></div>
+        <div class="friend-item"><img src="https://i.pravatar.cc/150?u=33" class="friend-pp"><span>Siti Aminah</span></div>` 
     },
     'kerja': { 
         title: 'Pekerjaan', 
@@ -46,37 +46,37 @@ const pagesData = {
     },
     'mantan': { 
         title: 'Mantan', 
-        html: `<div style="background:rgba(255,255,255,0.05); padding:25px; border-radius:25px; border:1px dashed var(--accent); text-align:center; font-style:italic;">"Terkadang melepaskan adalah cara terbaik untuk mencintai dirimu kembali. Fokuslah pada masa depanmu, MUHAJI."</div>` 
+        html: `<div style="background:rgba(255,255,255,0.05); padding:25px; border-radius:25px; border:1px dashed var(--accent); text-align:center; font-style:italic;">"Melupakan adalah cara terbaik untuk mencintai dirimu kembali. MUHAJI, waktunya melangkah maju menuju masa depan yang cerah."</div>` 
     }
 };
 
-// --- 3. CLOCK & PRAYER LOGIC ---
-function updateTime() {
+// --- 3. LOGIKA JAM & SHOLAT ---
+function clock() {
     const now = new Date();
     document.getElementById('clock').innerText = now.getHours().toString().padStart(2,'0') + "." + now.getMinutes().toString().padStart(2,'0');
-    
     const days = ['AHAD', 'ISNIN', 'SELASA', 'RABU', 'KHAMIS', 'JUMAAT', 'SABTU'];
-    document.getElementById('current-day').innerText = days[now.getDay()];
-
+    const dayEl = document.getElementById('current-day');
+    if(dayEl) dayEl.innerText = days[now.getDay()];
+    
     const h = now.getHours();
     let g = h >= 5 && h < 12 ? "Selamat Pagi ☀️" : h >= 12 && h < 15 ? "Selamat Siang 🌤️" : h >= 15 && h < 19 ? "Selamat Petang 🌅" : "Selamat Malam 🌙";
-    document.getElementById('day-greeting').innerText = g;
+    const greetEl = document.getElementById('day-greeting');
+    if(greetEl) greetEl.innerText = g;
 }
-setInterval(updateTime, 1000); updateTime();
+setInterval(clock, 1000); clock();
 
-async function fetchPrayer() {
+async function getPrayer() {
     try {
         const res = await fetch('https://api.aladhan.com/v1/timingsByAddress?address=Sungai%20Puyu,Penang,Malaysia&method=11');
         const d = await res.json(); const t = d.data.timings;
         document.getElementById('fajr').innerText = t.Fajr; document.getElementById('dhuhr').innerText = t.Dhuhr;
         document.getElementById('asr').innerText = t.Asr; document.getElementById('maghrib').innerText = t.Maghrib;
         document.getElementById('isha').innerText = t.Isha;
-
         const hj = d.data.date.hijri;
         document.getElementById('hijri-date').innerText = `${hj.day} ${hj.month.en.toUpperCase()} ${hj.year}H`;
     } catch(e) {}
 }
-fetchPrayer();
+getPrayer();
 
 // --- 4. PIN LOGIC ---
 let inputPin = "";
@@ -93,7 +93,10 @@ function pressKey(n) {
     }
 }
 function updateDots() {
-    for(let i=1; i<=4; i++) document.getElementById(`dot${i}`).classList.toggle('active', i <= inputPin.length);
+    for(let i=1; i<=4; i++) {
+        const dot = document.getElementById(`dot${i}`);
+        if(dot) dot.classList.toggle('active', i <= inputPin.length);
+    }
 }
 
 // --- 5. NAVIGATION ---
@@ -105,23 +108,28 @@ function showPage(id) {
         document.getElementById('det-title').innerText = "PRIBADI VAULT";
         let notesHtml = pribadiCatatan.map(n => `<div class="note-box">${n}</div>`).join('');
         let mediaHtml = pribadiMedia.map(m => {
-            if(m.type === 'image') return `<div class="media-card" onclick="openViewer('${m.src}', 'image')"><img src="${m.src}" onerror="this.src='https://via.placeholder.com/400x600?text=Foto+NotFound'"></div>`;
+            if(m.type === 'image') return `<div class="media-card" onclick="openViewer('${m.src}', 'image')"><img src="${m.src}" onerror="this.src='https://via.placeholder.com/400x600?text=Pribadi+Foto'"></div>`;
             return `<div class="media-card" onclick="openViewer('${m.src}', 'video')"><video src="${m.src}"></video><i class="fas fa-play-circle video-icon"></i></div>`;
         }).join('');
-        document.getElementById('det-content').innerHTML = `<h3>Catatan</h3>${notesHtml}<hr style="opacity:0.1; margin:20px 0;"><h3>Media</h3><div class="media-grid">${mediaHtml}</div>`;
+        document.getElementById('det-content').innerHTML = `<h3>Catatan</h3>${notesHtml}<hr style="opacity:0.1; margin:20px 0;"><h3>Media Galeri</h3><div class="media-grid">${mediaHtml}</div>`;
     } else {
         document.getElementById('det-title').innerText = pagesData[id].title;
         document.getElementById('det-content').innerHTML = pagesData[id].html;
-        if(id === 'kerja') document.getElementById('work-note').value = localStorage.getItem('muhaji_work') || "";
+        if(id === 'kerja') {
+            const area = document.getElementById('work-note');
+            if(area) area.value = localStorage.getItem('muhaji_work') || "";
+        }
     }
 }
+
 function goHome() {
     document.getElementById('details').classList.remove('active');
     document.getElementById('home').style.display = 'block';
 }
 
 function saveWork() {
-    localStorage.setItem('muhaji_work', document.getElementById('work-note').value);
+    const val = document.getElementById('work-note').value;
+    localStorage.setItem('muhaji_work', val);
     alert('Catatan Kerja Tersimpan!');
 }
 
@@ -131,7 +139,9 @@ function openViewer(src, type) {
     vBox.innerHTML = type === 'video' ? `<video src="${src}" id="viewer-content" controls autoplay></video>` : `<img src="${src}" id="viewer-content">`;
     document.getElementById('media-viewer').style.display = "flex";
 }
+
 function closeViewer() {
-    document.getElementById('v-box').innerHTML = '';
+    const vBox = document.getElementById('v-box');
+    if(vBox) vBox.innerHTML = '';
     document.getElementById('media-viewer').style.display = "none";
 }
