@@ -13,20 +13,20 @@
 <body>
 
     <div class="card">
-        <!-- TOP HEADER: BULAN ARAB, HARI, GREETING -->
+        <!-- TOP HEADER: HIJRIAH, HARI, GREETING -->
         <div class="top-status">
             <p id="hijri-date">MEMUAT TARIKH...</p>
             <p id="current-day">HARI</p>
             <p id="day-greeting">Selamat Datang</p>
         </div>
 
-        <!-- CLOCK SECTION -->
+        <!-- JAM & LOKASI -->
         <div class="header">
             <div id="clock">00.00</div>
             <p class="location-text"><i class="fas fa-location-arrow"></i> Sungai Puyu, Penang</p>
         </div>
         
-        <!-- PRAYER TIMES -->
+        <!-- JADWAL SHOLAT -->
         <div class="prayer-bar">
             <div class="p-item"><label>Subuh</label><span id="fajr">--:--</span></div>
             <div class="p-item"><label>Zuhur</label><span id="dhuhr">--:--</span></div>
@@ -35,13 +35,13 @@
             <div class="p-item"><label>Isyak</label><span id="isha">--:--</span></div>
         </div>
 
-        <!-- PROFILE PHOTO & NAME -->
+        <!-- PROFIL & NAMA -->
         <div class="avatar-area">
             <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200" alt="Profile">
         </div>
         <div class="profile-name">MUHAJI</div>
 
-        <!-- SOCIAL ICONS -->
+        <!-- SOSIAL MEDIA -->
         <div class="social-row">
             <a href="#" class="soc-btn ig"><i class="fab fa-instagram"></i></a>
             <a href="#" class="soc-btn tt"><i class="fab fa-tiktok"></i></a>
@@ -49,7 +49,7 @@
             <a href="#" class="soc-btn fb"><i class="fab fa-facebook-f"></i></a>
         </div>
 
-        <!-- NAVIGATION MENU -->
+        <!-- MENU UTAMA -->
         <div id="home-menu" class="menu-stack">
             <div class="menu-btn" onclick="openPin()"><i class="fas fa-user-lock"></i> <span>Pribadi (Locked)</span></div>
             <div class="menu-btn" onclick="showPage('foto')"><i class="fas fa-images"></i> <span>Momen Foto</span></div>
@@ -59,14 +59,14 @@
             <div class="menu-btn" onclick="showPage('mantan')"><i class="fas fa-ghost"></i> <span>Mantan</span></div>
         </div>
 
-        <!-- DETAIL CONTENT PAGE -->
+        <!-- HALAMAN DETAIL -->
         <div id="details" class="page">
             <button class="back-btn" onclick="goHome()"><i class="fas fa-chevron-left"></i> KEMBALI</button>
             <h2 id="det-title"></h2>
             <div id="det-content"></div>
         </div>
 
-        <!-- PIN Pad Overlay -->
+        <!-- OVERLAY PIN -->
         <div id="pin-overlay">
             <i class="fas fa-shield-alt fa-3x" style="color: var(--accent); margin-bottom: 20px;"></i>
             <p>Masukkan PIN Akses</p>
@@ -78,12 +78,12 @@
                 <div class="key" onclick="pressKey('1')">1</div><div class="key" onclick="pressKey('2')">2</div><div class="key" onclick="pressKey('3')">3</div>
                 <div class="key" onclick="pressKey('4')">4</div><div class="key" onclick="pressKey('5')">5</div><div class="key" onclick="pressKey('6')">6</div>
                 <div class="key" onclick="pressKey('7')">7</div><div class="key" onclick="pressKey('8')">8</div><div class="key" onclick="pressKey('9')">9</div>
-                <div class="key" onclick="closePin()" style="color:var(--red); font-size:12px;">X</div><div class="key" onclick="pressKey('0')">0</div><div class="key" onclick="clearPin()"><i class="fas fa-backspace"></i></div>
+                <div class="key" onclick="closePin()" style="color:var(--red); font-size:12px;">BATAL</div><div class="key" onclick="pressKey('0')">0</div><div class="key" onclick="clearPin()"><i class="fas fa-backspace"></i></div>
             </div>
         </div>
     </div>
 
-    <!-- MEDIA VIEWER / LIGHTBOX -->
+    <!-- VIEWER GALERI -->
     <div id="media-viewer" onclick="closeViewer()">
         <div id="viewer-box" onclick="event.stopPropagation()">
             <span class="close-v" onclick="closeViewer()">&times;</span>
